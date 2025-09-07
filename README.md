@@ -1,4 +1,4 @@
-Projeto Nebula
+# Projeto Nebula
 
 Este é o meu **espaço/laboratório público de conhecimento**.  
 Aqui eu vou documentar aprendizagens, configurações e experiências no caminho de construir o **Nebula**, um ecossistema de serviços self-hosted para estudo, trabalho, estresse e diversão.
