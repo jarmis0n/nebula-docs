@@ -1,0 +1,86 @@
+### Script usado para fazer o deploy do Nemesis (Proxmox VE 9.0)
+### 14/08/2025
+
+
+
+- Download da iso do PVE 9.0
+- Feito mapping da iso no iDrac
+- Feita instalação pelo iDrac
+
+
+### rpool settings
+- ZFS (Raid1)
+- ashift 12
+- compress lz4
+- checksum on
+- copies 1
+- ARC 6426MiB
+- HDSize 931 GB
+
+
+
+### Bond config
+### Obs.: Ajustei MTUs numa tentativa de melhor performance
+
+auto lo
+iface lo inet loopback
+
+iface eno1 inet manual
+iface eno2 inet manual
+
+auto bond0
+iface bond0 inet manual
+	bond-slaves eno1 eno2
+	bond-miimon 100
+	bond-mode 802.3ad
+	bond-xmit-hash-policy layer3+4
+	mtu 1598
+
+auto bond0.10
+iface bond0.10 inet manual
+	vlan-raw-device bond0
+	mtu 1594
+
+auto vmbr0
+iface vmbr0 inet static
+	address 192.168.10.1/25
+	gateway 192.168.10.100
+	dns-nameservers 192.168.10.100 8.8.8.8 1.1.1.1
+	bridge-ports bond0.10
+	bridge-stp off
+	bridge-fd 0
+	mtu 1594
+
+
+
+
+### Raidz2 datapool
+zpool create -f \
+  -o ashift=12 \
+  -O compression=lz4 \
+  -O atime=off \
+  -O relatime=on \
+  -O xattr=sa \
+  -O acltype=posixacl \
+  -O normalization=formD \
+  -O mountpoint=/datapool \
+  datapool raidz2 /dev/sde /dev/sdf /dev/sdg /dev/sdh
+
+
+zfs create datapool/vm-disks
+zfs create datapool/backups
+zfs create datapool/media
+
+
+
+### Rpool
+zfs create rpool/infra
+zfs create rpool/infra/iso 
+zfs create rpool/infra/templates
+zfs create rpool/infra/scripts
+zfs create rpool/infra/config
+zfs create rpool/infra/logs
+zfs list
+
+
+
