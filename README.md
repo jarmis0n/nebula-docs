@@ -15,10 +15,13 @@ A proposta deste espaço é dupla:
 ## Estrutura inicial
 A documentação técnica está organizada na pasta [`docs/`](docs/):
 - [Proxmox](docs/proxmox.md) – virtualização, boas práticas e organização das VMs.  
-- [ZFS](docs/zfs.md) – pools, datasets, ZVOLs e truques de resiliência.  
+- [ZFS](docs/zfs.md) – pools, datasets, configurações de rede, ZVOLs e truques de resiliência.  
+- [Linux](docs/linux.md) - config files, ajustes e tudo relacionado com linux
+- [Mikrotik](docs/mikrotik.md) - exemplos de configurações para mikrotik
+- [Container](docs/container.md) - aqui conterá configurações relacionadas com containers e os docker-compose dos serviços que costumo usar.
 
 ## Filosofia
-O **Nebula** não é só um servidor: é um esforço de aprendizado contínuo.  
+O Nebula é meu esforço de aprendizado contínuo.  
 Eu acredito que erro documentado é um erro que vira conhecimento. E conhecimento compartilhado é combustível para a comunidade, e vira sabedoria.
 
 Sinta-se livre para ler, aprender, e sugerir melhorias. :)
